@@ -16,8 +16,7 @@ from vendeeglobe import (
 )
 from vendeeglobe.utils import distance_on_surface
 
-# This is your team name
-CREATOR = "TeamName"
+CREATOR = "TeamName"  # This is your team name
 
 
 class Bot:
@@ -27,7 +26,7 @@ class Bot:
 
     def __init__(self):
         self.team = CREATOR  # Mandatory attribute
-        self.avatar = 2  # Optional attribute
+        self.avatar = 1  # Optional attribute
         self.course = [
             Checkpoint(latitude=43.797109, longitude=-11.264905, radius=50),
             Checkpoint(longitude=-29.908577, latitude=17.999811, radius=50),

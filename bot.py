@@ -24,6 +24,7 @@ class Bot:
 
     def __init__(self):
         self.team = "TeamName"  # This is your team name
+        # This is the course that the ship has to follow
         self.course = [
             Checkpoint(latitude=43.797109, longitude=-11.264905, radius=50),
             Checkpoint(longitude=-29.908577, latitude=17.999811, radius=50),
@@ -53,7 +54,7 @@ class Bot:
         vector: np.ndarray,
         forecast: WeatherForecast,
         world_map: MapProxy,
-    ):
+    ) -> Instructions:
         """
         This is the method that will be called at every time step to get the
         instructions for the ship.
@@ -78,20 +79,37 @@ class Bot:
             The weather forecast for the next 5 days.
         world_map:
             The map of the world: 1 for sea, 0 for land.
+
+        Returns
+        -------
+        instructions:
+            A set of instructions for the ship. This can be:
+            - a Location to go to
+            - a Heading to point to
+            - a Vector to follow
+            - a number of degrees to turn Left
+            - a number of degrees to turn Right
+
+            Optionally, a sail value between 0 and 1 can be set.
         """
+        # Initialize the instructions
         instructions = Instructions()
+        # Go through all checkpoints and find the next one to reach
         for ch in self.course:
+            # Compute the distance to the checkpoint
             dist = distance_on_surface(
                 longitude1=longitude,
                 latitude1=latitude,
                 longitude2=ch.longitude,
                 latitude2=ch.latitude,
             )
+            # Consider slowing down if the checkpoint is close
             jump = dt * np.linalg.norm(speed)
             if dist < 2.0 * ch.radius + jump:
                 instructions.sail = min(ch.radius / jump, 1)
             else:
                 instructions.sail = 1.0
+            # Check if the checkpoint has been reached
             if dist < ch.radius:
                 ch.reached = True
             if not ch.reached:

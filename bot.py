@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 # flake8: noqa F401
+from collections.abc import Callable
 
 import numpy as np
 
@@ -9,9 +10,7 @@ from vendeeglobe import (
     Heading,
     Instructions,
     Location,
-    MapProxy,
     Vector,
-    WeatherForecast,
     config,
 )
 from vendeeglobe.utils import distance_on_surface
@@ -52,8 +51,8 @@ class Bot:
         heading: float,
         speed: float,
         vector: np.ndarray,
-        forecast: WeatherForecast,
-        world_map: MapProxy,
+        forecast: Callable,
+        world_map: Callable,
     ) -> Instructions:
         """
         This is the method that will be called at every time step to get the
@@ -76,9 +75,17 @@ class Bot:
         vector:
             The current heading of the ship, expressed as a vector.
         forecast:
-            The weather forecast for the next 5 days.
+            Method to query the weather forecast for the next 5 days.
+            Example:
+            current_position_forecast = forecast(
+                latitudes=latitude, longitudes=longitude, times=0
+            )
         world_map:
-            The map of the world: 1 for sea, 0 for land.
+            Method to query map of the world: 1 for sea, 0 for land.
+            Example:
+            current_position_terrain = world_map(
+                latitudes=latitude, longitudes=longitude
+            )
 
         Returns
         -------
@@ -94,6 +101,14 @@ class Bot:
         """
         # Initialize the instructions
         instructions = Instructions()
+
+        # TODO: Remove this, it's only for testing =================
+        current_position_forecast = forecast(
+            latitudes=latitude, longitudes=longitude, times=0
+        )
+        current_position_terrain = world_map(latitudes=latitude, longitudes=longitude)
+        # ===========================================================
+
         # Go through all checkpoints and find the next one to reach
         for ch in self.course:
             # Compute the distance to the checkpoint

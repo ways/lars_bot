@@ -14,7 +14,12 @@ from vendeeglobe import (
     config,
 )
 from vendeeglobe.utils import distance_on_surface
+from vendeeglobe import play
 
+play.course_preview=[
+                     Checkpoint(latitude=43.797109, longitude=-11.264905, radius=50),
+                     Checkpoint(longitude=-29.908577, latitude=17.999811, radius=50),
+]
 
 class Bot:
     """
@@ -25,14 +30,21 @@ class Bot:
         self.team = "TeamName"  # This is your team name
         # This is the course that the ship has to follow
         self.course = [
-            Checkpoint(latitude=43.797109, longitude=-11.264905, radius=50),
-            Checkpoint(longitude=-29.908577, latitude=17.999811, radius=50),
-            Checkpoint(latitude=-11.441808, longitude=-29.660252, radius=50),
-            Checkpoint(longitude=-63.240264, latitude=-61.025125, radius=50),
-            Checkpoint(latitude=2.806318, longitude=-168.943864, radius=1990.0),
-            Checkpoint(latitude=-62.052286, longitude=169.214572, radius=50.0),
-            Checkpoint(latitude=-15.668984, longitude=77.674694, radius=1190.0),
-            Checkpoint(latitude=-39.438937, longitude=19.836265, radius=50.0),
+            Checkpoint(latitude=40.87907046007358, longitude=-32.46582250480802, radius=1), # bom på øy
+            Checkpoint(latitude=17.0138350185302, longitude=-69.19020108068081, radius=1), # jamaicaish
+            Checkpoint(latitude=10.514597482803084, longitude=-80.22749180750842, radius=1), # pre panama
+            Checkpoint(latitude=6.322062464497975, longitude=-78.697351206516, radius=1), # post panama
+            Checkpoint(latitude=16.75287814411725, longitude=-164.1000368159, radius=1), # check 1
+
+            Checkpoint(latitude=-47, longitude=146.1000368159, radius=1), # sør for australia
+
+            Checkpoint(latitude=-9, longitude=77, radius=1), # check 2
+
+            Checkpoint(latitude=14.9, longitude=54, radius=1), # pre arab
+            Checkpoint(latitude=11.5, longitude=44, radius=1), # sues
+            Checkpoint(latitude=28, longitude=34, radius=1), # sues
+            Checkpoint(latitude=29, longitude=32, radius=1), # exit sues
+
             Checkpoint(latitude=14.881699, longitude=-21.024326, radius=50.0),
             Checkpoint(latitude=44.076538, longitude=-18.292936, radius=50.0),
             Checkpoint(
@@ -103,11 +115,18 @@ class Bot:
         instructions = Instructions()
 
         # TODO: Remove this, it's only for testing =================
-        current_position_forecast = forecast(
-            latitudes=latitude, longitudes=longitude, times=0
-        )
+        # current_position_forecast = forecast(
+        #     latitudes=latitude, longitudes=longitude, times=0
+        # )
         current_position_terrain = world_map(latitudes=latitude, longitudes=longitude)
         # ===========================================================
+
+        # Check if we hit land, and set heating to 90 degrees of current heading
+        # if current_position_terrain == 0:
+        #     print(instructions.heading)
+        #     instructions.heading = heading + 15
+        #     return instructions
+
 
         # Go through all checkpoints and find the next one to reach
         for ch in self.course:
@@ -118,12 +137,13 @@ class Bot:
                 longitude2=ch.longitude,
                 latitude2=ch.latitude,
             )
-            # Consider slowing down if the checkpoint is close
-            jump = dt * np.linalg.norm(speed)
-            if dist < 2.0 * ch.radius + jump:
-                instructions.sail = min(ch.radius / jump, 1)
-            else:
-                instructions.sail = 1.0
+            # # Consider slowing down if the checkpoint is close
+            # jump = dt * np.linalg.norm(speed)
+            # if dist < 2.0 * ch.radius + jump:
+            #     instructions.sail = min(ch.radius / jump, 1)
+            # else:
+            #     instructions.sail = 1.0
+
             # Check if the checkpoint has been reached
             if dist < ch.radius:
                 ch.reached = True

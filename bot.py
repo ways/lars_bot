@@ -34,7 +34,7 @@ class Bot:
             Checkpoint(latitude=17.0138350185302, longitude=-69.19020108068081, radius=1), # jamaicaish
             Checkpoint(latitude=10.514597482803084, longitude=-80.22749180750842, radius=1), # pre panama
             Checkpoint(latitude=6.322062464497975, longitude=-78.697351206516, radius=1), # post panama
-            Checkpoint(latitude=16.75287814411725, longitude=-164.1000368159, radius=1), # check 1
+            Checkpoint(latitude=-10, longitude=-168, radius=1), # check 1
 
             Checkpoint(latitude=-47, longitude=146.1000368159, radius=1), # sør for australia
 

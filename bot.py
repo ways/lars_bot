@@ -48,7 +48,7 @@ class Bot:
             Checkpoint(latitude=33, longitude=32.4, radius=1), # enter sues
 
             # silje
-            Checkpoint(latitude=31.364350, longitude=32.396575, radius=1), #utenfor suez
+            # Checkpoint(latitude=31.364350, longitude=32.396575, radius=1), #utenfor suez
             Checkpoint(latitude=32.281341, longitude=31.127178, radius=1), #utenfor Egypt
             Checkpoint(latitude=36.405261, longitude=14.852485, radius=1), #sør for Italia
             Checkpoint(latitude=38.251653, longitude=8.663179, radius=1),           

@@ -27,7 +27,7 @@ class Bot:
     """
 
     def __init__(self):
-        self.team = "TeamName"  # This is your team name
+        self.team = "lars"  # This is your team name
         # This is the course that the ship has to follow
         self.course = [
             Checkpoint(latitude=40.87907046007358, longitude=-32.46582250480802, radius=1), # bom på øy
@@ -41,12 +41,24 @@ class Bot:
             Checkpoint(latitude=-9, longitude=77, radius=1), # check 2
 
             Checkpoint(latitude=14.9, longitude=54, radius=1), # pre arab
-            Checkpoint(latitude=11.5, longitude=44, radius=1), # sues
-            Checkpoint(latitude=28, longitude=34, radius=1), # sues
-            Checkpoint(latitude=29, longitude=32, radius=1), # exit sues
+            Checkpoint(latitude=11.5, longitude=44, radius=1), # arab
+            Checkpoint(latitude=27.6, longitude=33.9, radius=1), # point for sues
+            Checkpoint(latitude=29.8, longitude=32.5, radius=1), # enter sues
 
-            Checkpoint(latitude=14.881699, longitude=-21.024326, radius=50.0),
-            Checkpoint(latitude=44.076538, longitude=-18.292936, radius=50.0),
+            Checkpoint(latitude=31.4, longitude=32.4, radius=1), # enter sues
+
+            # silje
+            Checkpoint(latitude=31.364350, longitude=32.396575, radius=1), #utenfor suez
+            Checkpoint(latitude=32.281341, longitude=31.127178, radius=1), #utenfor Egypt
+            Checkpoint(latitude=36.405261, longitude=14.852485, radius=1), #sør for Italia
+            Checkpoint(latitude=38.251653, longitude=8.663179, radius=1),           
+            Checkpoint(latitude=37.099048, longitude=0.131973, radius=1),
+            Checkpoint(latitude=35.936605, longitude=-3.548154, radius=1),
+            Checkpoint(latitude=35.960503, longitude=-5.486618, radius=1),            
+            Checkpoint(latitude=36.294308, longitude=-9.156906, radius=1),            
+            Checkpoint(latitude=41.024420, longitude=-11.764483, radius=1),            
+            Checkpoint(latitude=44.589069, longitude=-9.028987, radius=1),
+
             Checkpoint(
                 latitude=config.start.latitude,
                 longitude=config.start.longitude,
